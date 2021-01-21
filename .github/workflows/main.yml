@@ -1,0 +1,22 @@
+name: main-ci 
+
+on: [push] 
+
+jobs:
+  checkstyle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get list of changed files
+        run: FILES=$(git show --pretty="format:" --name-only $GITHUB_SHA);
+                for i in $FILES; do if [[ $i == *".java" ]]; then SOURCES="$SOURCES $i"; fi; done;
+        
+      # Checkstyle version and configuration file version must be the same
+      - name: Set up Checkstyle
+        run: sudo apt-get update;
+                sudo apt-get install checkstyle=8.8-1      
+
+      - name: Run Checkstyle
+        run: checkstyle -c $GITHUB_WORKSPACE/google_checks.xml $GITHUB_WORKSPACE$SOURCES;          
