@@ -10,7 +10,8 @@ public class ArrayCreator {
    * @param maxValue - maximum value of random (type int)
    */
   public void fillRandomized(Array array, int minValue, int maxValue) {
-    for (int i = 0; i < array.getSize(); i++) {
+    int size = array.size();
+    for (int i = 0; i < size; i++) {
       int value = (int) ((Math.random() * (maxValue - minValue)) + minValue);
       array.setElement(i, value);
     }

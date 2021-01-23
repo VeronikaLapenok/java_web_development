@@ -11,7 +11,7 @@ public class Array {
     array = new int[size];
   }
 
-  public int getSize() {
+  public int size() {
     return array.length;
   }
 

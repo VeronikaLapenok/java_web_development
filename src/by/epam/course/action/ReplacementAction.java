@@ -2,15 +2,16 @@ package by.epam.course.action;
 
 import by.epam.course.entity.Array;
 
-public class Replacement {
+public class ReplacementAction {
   /**
    * replace elements with negative value by 0.
    * @param array - array (type Array)
    * @return new array
    */
-  public Array replaceNegativeElements(Array array) {
+  public Array replaceNegatives(Array array) {
     final int replacement = 0;
-    for (int i = 0; i < array.getSize(); i++) {
+    int size = array.size();
+    for (int i = 0; i < size; i++) {
       if (array.getElement(i) < 0) {
         array.setElement(i, replacement);
       }
