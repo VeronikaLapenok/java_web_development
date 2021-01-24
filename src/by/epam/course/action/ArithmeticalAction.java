@@ -12,8 +12,8 @@ public class ArithmeticalAction {
     int min = 100;
     int size = array.size();
     for (int i = 0; i < size; i++) {
-      if (array.getElement(i) < min) {
-        min = array.getElement(i);
+      if (array.getValue(i) < min) {
+        min = array.getValue(i);
       }
     }
     return min;
@@ -28,8 +28,8 @@ public class ArithmeticalAction {
     int max = -100;
     int size = array.size();
     for (int i = 0; i < size; i++) {
-      if (array.getElement(i) > max) {
-        max = array.getElement(i);
+      if (array.getValue(i) > max) {
+        max = array.getValue(i);
       }
     }
     return max;
@@ -44,7 +44,7 @@ public class ArithmeticalAction {
     double sum = 0;
     int size = array.size();
     for (int i = 0; i < size; i++) {
-      sum += array.getElement(i);
+      sum += array.getValue(i);
     }
     return sum / size;
   }
@@ -58,7 +58,7 @@ public class ArithmeticalAction {
     int sum = 0;
     int size = array.size();
     for (int i = 0; i < size; i++) {
-      sum += array.getElement(i);
+      sum += array.getValue(i);
     }
     return sum;
   }
@@ -72,7 +72,7 @@ public class ArithmeticalAction {
     int positives = 0;
     int size = array.size();
     for (int i = 0; i < size; i++) {
-      if (array.getElement(i) > 0) {
+      if (array.getValue(i) > 0) {
         positives++;
       }
     }
@@ -88,7 +88,7 @@ public class ArithmeticalAction {
     int negatives = 0;
     int size = array.size();
     for (int i = 0; i < size; i++) {
-      if (array.getElement(i) < 0) {
+      if (array.getValue(i) < 0) {
         negatives++;
       }
     }

@@ -2,6 +2,7 @@ package by.epam.course.main;
 
 import by.epam.course.action.ArithmeticalAction;
 import by.epam.course.action.ReplacementAction;
+import by.epam.course.action.SortAction;
 import by.epam.course.creator.ArrayCreator;
 import by.epam.course.entity.Array;
 
@@ -18,20 +19,36 @@ public class ArrayMain {
     ArrayCreator creator = new ArrayCreator();
     Array array = new Array(10);
     creator.fillRandomized(array, -100, 100);
-    logger.debug(array);
+    logger.info(array);
 
     ArithmeticalAction arithmeticalAction = new ArithmeticalAction();
-    logger.debug("Minimum element of array is: " + arithmeticalAction.min(array));
-    logger.debug("Maximum element of array is: " + arithmeticalAction.max(array));
-    logger.debug("Number of positive elements in the array is: "
+    logger.info("Minimum element of array is: " + arithmeticalAction.min(array));
+    logger.info("Maximum element of array is: " + arithmeticalAction.max(array));
+    logger.info("Number of positive elements in the array is: "
         + arithmeticalAction.positives(array));
-    logger.debug("Number of negative elements in the array is: "
+    logger.info("Number of negative elements in the array is: "
         + arithmeticalAction.negatives(array));
-    logger.debug("Average of all elements of the array is: "
+    logger.info("Average of all elements of the array is: "
         + arithmeticalAction.average(array));
-    logger.debug("Sum of all elements of the array is " + arithmeticalAction.sum(array));
+    logger.info("Sum of all elements of the array is " + arithmeticalAction.sum(array));
     
     ReplacementAction replacement = new ReplacementAction();
-    logger.debug("New array is: " + replacement.replaceNegatives(array));
+    logger.info("New array is: " + replacement.replaceNegatives(array));
+    
+    Array arrayBubbleSorted = new Array(10);
+    creator.fillRandomized(arrayBubbleSorted, -100, 100);
+    logger.info(arrayBubbleSorted);
+    SortAction sort = new SortAction();
+    logger.info("Array sorted by bubble sort method: " + sort.bubbleSort(arrayBubbleSorted));
+    
+    Array arrayInsertSorted = new Array(10);
+    creator.fillRandomized(arrayInsertSorted, -100, 100);
+    logger.info(arrayInsertSorted);
+    logger.info("Array sorted by selection sort method: " + sort.insertSort(arrayInsertSorted));
+    
+    Array arraySelectSorted = new Array(10);
+    creator.fillRandomized(arraySelectSorted, -100, 100);
+    logger.info(arraySelectSorted);
+    logger.info("Array sorted by insertion sort method: " + sort.selectSort(arraySelectSorted));
   }
 }
