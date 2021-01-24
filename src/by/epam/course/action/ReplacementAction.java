@@ -12,8 +12,8 @@ public class ReplacementAction {
     final int replacement = 0;
     int size = array.size();
     for (int i = 0; i < size; i++) {
-      if (array.getElement(i) < 0) {
-        array.setElement(i, replacement);
+      if (array.getValue(i) < 0) {
+        array.setValue(i, replacement);
       }
     }
     return array;

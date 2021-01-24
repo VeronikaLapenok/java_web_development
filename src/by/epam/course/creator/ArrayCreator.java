@@ -13,7 +13,7 @@ public class ArrayCreator {
     int size = array.size();
     for (int i = 0; i < size; i++) {
       int value = (int) ((Math.random() * (maxValue - minValue)) + minValue);
-      array.setElement(i, value);
+      array.setValue(i, value);
     }
   }
 }

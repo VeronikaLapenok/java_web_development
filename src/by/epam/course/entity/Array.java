@@ -10,16 +10,16 @@ public class Array {
   public Array(int size) {
     array = new int[size];
   }
-
+  
   public int size() {
     return array.length;
   }
 
-  public int getElement(int index) {
+  public int getValue(int index) {
     return array[index];
   }
 
-  public void setElement(int index, int value) {
+  public void setValue(int index, int value) {
     array[index] = value;
   }
 
