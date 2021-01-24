@@ -1,10 +1,13 @@
 package by.epam.course.main;
 
 import by.epam.course.action.ArithmeticalAction;
+import by.epam.course.action.FileAction;
 import by.epam.course.action.ReplacementAction;
 import by.epam.course.action.SortAction;
 import by.epam.course.creator.ArrayCreator;
 import by.epam.course.entity.Array;
+
+import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,5 +53,13 @@ public class ArrayMain {
     creator.fillRandomized(arraySelectSorted, -100, 100);
     logger.info(arraySelectSorted);
     logger.info("Array sorted by insertion sort method: " + sort.selectSort(arraySelectSorted));
+    
+    FileAction file = new FileAction();
+    try {
+		file.readFile("./src/main/resources/array.txt");
+	} catch (IOException e) {
+		logger.error("File not found!");
+		
+	}
   }
 }
