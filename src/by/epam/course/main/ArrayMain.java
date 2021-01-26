@@ -19,7 +19,7 @@ public class ArrayMain {
   /**
    * program entry point.
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ArrayException {
     ArrayCreator creator = new ArrayCreator();
     
     try {
@@ -57,7 +57,7 @@ public class ArrayMain {
     try {
       Array arrayInsertSorted = creator.random(-100, 100, 10);
       logger.info(arrayInsertSorted);
-      logger.info("Array sorted by selection sort method: "
+      logger.info("Array sorted by insertion sort method: "
           + sort.insertSort(arrayInsertSorted));
     } catch (ArrayException e) {
       logger.error("Selection sort. " + e.getMessage());
@@ -66,7 +66,7 @@ public class ArrayMain {
     try {
       Array arraySelectSorted = creator.random(-100, 100, 10);
       logger.info(arraySelectSorted);
-      logger.info("Array sorted by insertion sort method: "
+      logger.info("Array sorted by selection sort method: "
           + sort.selectSort(arraySelectSorted));   
     } catch (ArrayException e) {
       logger.error("Insertion sort. " + e.getMessage());
@@ -74,11 +74,11 @@ public class ArrayMain {
     
     FileAction file = new FileAction();
     try {
-      String line = file.read("./src/main/resources/array.txt");
+      String line = file.read("./src/main/resources/arrayFile.txt");
       Array arrayFromFile = creator.fromString(line); 
       logger.info(arrayFromFile);
     } catch (IOException e) {
-      logger.error("File not found!");
+      logger.error("Error IO Exception");
     } catch (ArrayException e) {
       logger.error(e.getMessage());
     }

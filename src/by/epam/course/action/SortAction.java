@@ -21,18 +21,6 @@ public class SortAction {
   }
   
   /**
-   * swap the current and the next element of the array.
-   * @param array - array (type Array)
-   * @param index - current index (type int)
-   * @param nextIndex - next index (type int)
-   */
-  private void swap(Array array, int index, int nextIndex) {
-    int buf = array.getValue(index);
-    array.setValue(index, array.getValue(nextIndex));
-    array.setValue(nextIndex, buf);
-  }
-  
-  /**
    * sort array by insertion sort method.
    * @param array - initial array (type Array)
    * @return - sorted array
@@ -59,14 +47,28 @@ public class SortAction {
   public Array selectSort(Array array) {
     int size = array.size();
     for (int i = 0; i < size; i++) {
-      int min = i;
+      int min = array.getValue(i);
+      int minId = i;
       for (int j = i + 1; j < size; j++) {
-        if (array.getValue(j) < array.getValue(i)) {
-          min = j;
+        if (array.getValue(j) < min) {
+          min = array.getValue(j);
+          minId = j;
         }
       }
-      swap(array, i, min);
+      swap(array, i, minId);
     }
     return array;
+  }
+  
+  /**
+   * swap the current and the next element of the array.
+   * @param array - array (type Array)
+   * @param index - current index (type int)
+   * @param nextIndex - next index (type int)
+   */
+  private void swap(Array array, int index, int nextIndex) {
+    int buf = array.getValue(index);
+    array.setValue(index, array.getValue(nextIndex));
+    array.setValue(nextIndex, buf);
   }
 }
