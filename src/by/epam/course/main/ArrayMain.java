@@ -1,10 +1,13 @@
 package by.epam.course.main;
 
 import by.epam.course.action.ArithmeticalAction;
+import by.epam.course.action.FileAction;
 import by.epam.course.action.ReplacementAction;
 import by.epam.course.action.SortAction;
 import by.epam.course.creator.ArrayCreator;
 import by.epam.course.entity.Array;
+
+import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,8 +20,8 @@ public class ArrayMain {
    */
   public static void main(String[] args) {
     ArrayCreator creator = new ArrayCreator();
-    Array array = new Array(10);
-    creator.fillRandomized(array, -100, 100);
+    
+    Array array = creator.random(-100, 100, 10);
     logger.info(array);
 
     ArithmeticalAction arithmeticalAction = new ArithmeticalAction();
@@ -35,20 +38,28 @@ public class ArrayMain {
     ReplacementAction replacement = new ReplacementAction();
     logger.info("New array is: " + replacement.replaceNegatives(array));
     
-    Array arrayBubbleSorted = new Array(10);
-    creator.fillRandomized(arrayBubbleSorted, -100, 100);
+    Array arrayBubbleSorted = creator.random(-100, 100, 10);
     logger.info(arrayBubbleSorted);
     SortAction sort = new SortAction();
     logger.info("Array sorted by bubble sort method: " + sort.bubbleSort(arrayBubbleSorted));
     
-    Array arrayInsertSorted = new Array(10);
-    creator.fillRandomized(arrayInsertSorted, -100, 100);
+    Array arrayInsertSorted = creator.random(-100, 100, 10);
     logger.info(arrayInsertSorted);
     logger.info("Array sorted by selection sort method: " + sort.insertSort(arrayInsertSorted));
     
-    Array arraySelectSorted = new Array(10);
-    creator.fillRandomized(arraySelectSorted, -100, 100);
+    Array arraySelectSorted = creator.random(-100, 100, 10);
     logger.info(arraySelectSorted);
-    logger.info("Array sorted by insertion sort method: " + sort.selectSort(arraySelectSorted));
+    logger.info("Array sorted by insertion sort method: " + sort.selectSort(arraySelectSorted));   
+    
+    
+    FileAction file = new FileAction();
+    try {
+      String line = file.read("./src/main/resources/array.txt");
+      logger.debug(line);
+      Array arrayFromFile = creator.fromString(line);
+      logger.info(arrayFromFile);
+    } catch (IOException e) {
+      logger.error("File not found!");
+    }
   }
 }
