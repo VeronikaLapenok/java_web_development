@@ -1,5 +1,7 @@
 package by.epam.course.entity;
 
+import by.epam.course.exception.ArrayException;
+
 public class Array {
   private int [] array;
 
@@ -7,7 +9,15 @@ public class Array {
     this.array = array;
   }
 
-  public Array(int size) {
+  /**
+   * create an array of the given size.
+   * @param size - size of the array (type int)
+   * @throws ArrayException - work if size < 1
+   */
+  public Array(int size) throws ArrayException {
+    if (size < 1) {
+      throw new ArrayException("Incorrect size of array");
+    }
     array = new int[size];
   }
   
