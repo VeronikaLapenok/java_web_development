@@ -1,6 +1,7 @@
 package by.epam.course.creator;
 
 import by.epam.course.entity.Array;
+import by.epam.course.exception.ArrayException;
 import by.epam.course.validation.Validation;
 
 public class ArrayCreator {
@@ -11,7 +12,7 @@ public class ArrayCreator {
    * @param size - array size (type int)
    * @return array - array of random values
    */
-  public Array random(int minValue, int maxValue, int size) {
+  public Array random(int minValue, int maxValue, int size) throws ArrayException {
     Array array = new Array(size);  
  
     for (int i = 0; i < size; i++) {
@@ -26,9 +27,9 @@ public class ArrayCreator {
    * @param string - string with data for initialize the array (type String)
    * @return array - array of values from string
    */
-  public Array fromString(String string) {
-    if (string.isEmpty() || !Validation.isString(string)) {
-      return new Array(0);
+  public Array fromString(String string) throws ArrayException {
+    if (!Validation.isString(string)) {
+      throw new ArrayException("The string is incorrect");
     }
 
     string = string.trim();
