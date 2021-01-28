@@ -4,9 +4,9 @@ import by.epam.course.entity.Array;
 
 public class ArithmeticalAction {
   /**
-   * get minimum element of the array.
+   * find minimum element of the array.
    * @param array - array (type Array)
-   * @return minimum element of the array
+   * @return min - minimum element of the array (type min)
    */
   public int min(Array array) {
     int min = 100;
@@ -20,9 +20,9 @@ public class ArithmeticalAction {
   }
 
   /**
-   * get maximum element of the array.
+   * find maximum element of the array.
    * @param array - array (type Array)
-   * @return maximum element of the array
+   * @return max - maximum element of the array (type int)
    */
   public int max(Array array) {
     int max = -100;
@@ -36,9 +36,9 @@ public class ArithmeticalAction {
   }
   
   /**
-   * get arithmetical mean of all elements of the array.
+   * find average of all elements of the array.
    * @param array - array (type Array)
-   * @return arithmetical mean
+   * @return average - average of elements (type int)
    */
   public double average(Array array) {
     double sum = 0;
@@ -50,9 +50,9 @@ public class ArithmeticalAction {
   }
 
   /**
-   * get sum of all elements in the array.
+   * find sum of all elements in the array.
    * @param array - array (type Array)
-   * @return sum of elements
+   * @return sum - sum of elements (type int)
    */
   public int sum(Array array) {
     int sum = 0;
@@ -64,9 +64,9 @@ public class ArithmeticalAction {
   }
   
   /**
-   * get number of positive elements in the array.
+   * find number of positive elements in the array.
    * @param array - array (type Array)
-   * @return number of positive elements
+   * @return positives - number of positive elements (type int)
    */
   public int positives(Array array) {
     int positives = 0;
@@ -80,9 +80,9 @@ public class ArithmeticalAction {
   }
 
   /**
-   * get number of negative elements in the array.
+   * find number of negative elements in the array.
    * @param array - array (type Array)
-   * @return number of negative elements
+   * @return negatives - number of negative elements (type int)
    */
   public int negatives(Array array) {
     int negatives = 0;

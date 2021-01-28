@@ -1,8 +1,10 @@
 package by.epam.course.main;
 
 import by.epam.course.action.ArithmeticalAction;
+import by.epam.course.action.ArithmeticalActionIntStream;
 import by.epam.course.action.FileAction;
 import by.epam.course.action.ReplacementAction;
+import by.epam.course.action.ReplacementActionIntStream;
 import by.epam.course.action.SortAction;
 import by.epam.course.creator.ArrayCreator;
 import by.epam.course.entity.Array;
@@ -25,6 +27,10 @@ public class ArrayMain {
     try {
       Array array = creator.random(-100, 100, 10);
       logger.info(array);
+      
+      ReplacementActionIntStream action = new ReplacementActionIntStream();
+      logger.debug(action.replaceNegatives(array));
+      
 
       ArithmeticalAction arithmeticalAction = new ArithmeticalAction();
       logger.info("Minimum element of array is: " + arithmeticalAction.min(array));
