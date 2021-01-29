@@ -32,6 +32,10 @@ public class Array {
   public void setValue(int index, int value) {
     array[index] = value;
   }
+  
+  public int [] getArray() {
+    return array;
+  }
 
   @Override
   public String toString() {
