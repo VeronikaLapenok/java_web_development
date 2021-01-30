@@ -1,7 +1,10 @@
-package test.epam.course.action;
+package by.epam.course.task1.action;
 
-import by.epam.course.action.ArithmeticalAction;
-import by.epam.course.entity.Array;
+import by.epam.course.task1.entity.Array;
+import by.epam.course.task1.exception.ArrayException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -10,6 +13,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class ArithmeticalTest {
+  private static Logger logger = LogManager.getLogger();
+  
   ArithmeticalAction arithmeticalAction;
   
   @BeforeClass
@@ -18,51 +23,93 @@ public class ArithmeticalTest {
   }
   
   @Test (dataProvider = "minData")
-  public void testMin(int expected, int [] actualArray) {
+  public void testMin(int expected, int [] actualArray) throws ArrayException {
+    logger.debug("Enter testMin");
+    
     Array array = new Array(actualArray);  
     int actual = arithmeticalAction.min(array);
     
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
+    
     Assert.assertEquals(actual, expected);
+    
+    logger.debug("Exit testMin");
   }
   
   @Test (dataProvider = "maxData")
-  public void testMax(int expected, int [] actualArray) {
+  public void testMax(int expected, int [] actualArray) throws ArrayException {
+    logger.debug("Enter testMax");
+    
     Array array = new Array(actualArray);  
     int actual = arithmeticalAction.max(array);
+    
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
 
     Assert.assertEquals(actual, expected);
+    
+    logger.debug("Exit testMax");
   }
   
   @Test (dataProvider = "averageData")
-  public void testAverage(double expected, int [] actualArray) {
+  public void testAverage(double expected, int [] actualArray) throws ArrayException {
+    logger.debug("Enter testAverage");
+    
     Array array = new Array(actualArray);  
     double actual = arithmeticalAction.average(array);
+    
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
 
     Assert.assertEquals(actual, expected, 0.001);
+    
+    logger.debug("Exit testAverage");
   }
   
   @Test (dataProvider = "sumData")
-  public void testSum(int expected, int [] actualArray) {
+  public void testSum(int expected, int [] actualArray) throws ArrayException {
+    logger.debug("Enter testSum");
+    
     Array array = new Array(actualArray);  
     int actual = arithmeticalAction.sum(array);
+    
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
 
     Assert.assertEquals(actual, expected);
+    
+    logger.debug("Exit testSum");
   }
   
   @Test (dataProvider = "positivesData")
-  public void testPositives(int expected, int [] actualArray) {
+  public void testPositives(int expected, int [] actualArray) throws ArrayException {
+    logger.debug("Enter testPositives");
+    
     Array array = new Array(actualArray);  
     int actual = arithmeticalAction.positives(array);
+    
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
 
     Assert.assertEquals(actual, expected);
+    
+    logger.debug("Exit testPositives");
   }
   
   @Test (dataProvider = "negativesData")
-  public void testNegatives(int expected, int [] actualArray) {
+  public void testNegatives(int expected, int [] actualArray) throws ArrayException {
+    logger.debug("Enter testNegatives");
+    
     Array array = new Array(actualArray);  
     int actual = arithmeticalAction.negatives(array);
+    
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
 
     Assert.assertEquals(actual, expected);
+    
+    logger.debug("Exit testNegatives");
   }
   
   /**

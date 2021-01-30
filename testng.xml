@@ -3,10 +3,13 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="test.epam.course.action.ArithmeticalTest"/>
-      <class name="test.epam.course.action.ReplacementTest"/>
-      <class name="test.epam.course.action.SortTest"/>
-      <class name="test.epam.course.action.FileTest"/>
+      <class name="by.epam.course.task1.action.ArithmeticalTestIntStream" />
+      <class name="by.epam.course.task1.action.ArithmeticalTest" />
+      <class name="by.epam.course.task1.action.ReplacementTest" />
+      <class name="by.epam.course.task1.action.ReplacementTestIntStream" />
+      <class name="by.epam.course.task1.action.SortTest" />
+      <class name="by.epam.course.task1.action.SortTestIntStream" />
+      <class name="by.epam.course.task1.action.FileTest" />
     </classes>
-  </test> 
+  </test>
 </suite> 

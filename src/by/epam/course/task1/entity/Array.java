@@ -1,6 +1,7 @@
-package by.epam.course.entity;
+package by.epam.course.task1.entity;
 
-import by.epam.course.exception.ArrayException;
+import by.epam.course.task1.exception.ArrayException;
+import java.util.Arrays;
 
 public class Array {
   private int [] array;
@@ -35,6 +36,28 @@ public class Array {
   
   public int [] getArray() {
     return array;
+  }
+  
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    for (int item: array) {
+      result = prime * result + item;
+    }
+    return result;
+  }
+  
+  @Override 
+  public boolean equals(Object object) {
+    if (this == object) {
+      return true;
+    }
+    if (object == null || getClass() != object.getClass()) {
+      return false;
+    }
+    Array objectArray = (Array) object;
+    return Arrays.equals(array, objectArray.array);
   }
 
   @Override

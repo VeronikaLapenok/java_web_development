@@ -1,7 +1,6 @@
-package test.epam.course.action;
+package by.epam.course.task1.action;
 
-import by.epam.course.action.FileAction;
-import by.epam.course.exception.ArrayException;
+import by.epam.course.task1.exception.ArrayException;
 
 import java.io.IOException;
 
@@ -10,7 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class FileTest {
-  static final String testFile = "./src/main/resources/testArrayFile.txt";
+  private static final String testFile = "resources/data/testArrayFile.txt";
   FileAction file;
   
   @BeforeClass

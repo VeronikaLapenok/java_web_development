@@ -1,4 +1,4 @@
-package by.epam.course.exception;
+package by.epam.course.task1.exception;
 
 public class ArrayException extends Exception {
   public ArrayException() {
