@@ -1,7 +1,9 @@
-package test.epam.course.action;
+package by.epam.course.task1.action;
 
-import by.epam.course.action.ReplacementAction;
-import by.epam.course.entity.Array;
+import by.epam.course.task1.entity.Array;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -11,6 +13,8 @@ import org.testng.annotations.Test;
 
 
 public class ReplacementTest {
+  private static Logger logger = LogManager.getLogger();
+  
   ReplacementAction replacementAction;
 
   @BeforeClass
@@ -20,12 +24,19 @@ public class ReplacementTest {
 
   @Test (dataProvider = "replacementData")
   public void testReplacement(int [] expectedArray, int [] actualArray) {
+    logger.debug("Enter testReplacement");
+    
     Array actual = new Array(actualArray);
     Array expected = new Array(expectedArray);
 
     actual = replacementAction.replaceNegatives(actual);
+    
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
 
     Assert.assertEquals(actual.toString(), expected.toString());
+    
+    logger.debug("Exit testReplacement");
   }
   
   /**

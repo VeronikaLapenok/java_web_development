@@ -1,7 +1,9 @@
-package test.epam.course.action;
+package by.epam.course.task1.action;
 
-import by.epam.course.action.SortAction;
-import by.epam.course.entity.Array;
+import by.epam.course.task1.entity.Array;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -11,6 +13,8 @@ import org.testng.annotations.Test;
 
 
 public class SortTest {
+  private static Logger logger = LogManager.getLogger();
+  
   SortAction sortAction;
 
   @BeforeClass
@@ -20,32 +24,53 @@ public class SortTest {
 
   @Test (dataProvider = "bubbleSortData")
   public void testBubbleSort(int [] expectedArray, int [] actualArray) {
+    logger.debug("Enter testBubbleSort");
+    
     Array actual = new Array(actualArray);
     Array expected = new Array(expectedArray);
 
     actual = sortAction.bubbleSort(actual);
+    
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
 
     Assert.assertEquals(actual.toString(), expected.toString());
+    
+    logger.debug("Exit testBubbleSort");
   }
   
   @Test (dataProvider = "insertSortData")
   public void testInsertSort(int [] expectedArray, int [] actualArray) {
+    logger.debug("Enter testInterSort");
+    
     Array actual = new Array(actualArray);
     Array expected = new Array(expectedArray);
     
     actual = sortAction.insertSort(actual);
+    
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
 
     Assert.assertEquals(actual.toString(), expected.toString());
+    
+    logger.debug("Exit testInsertSort");
   }
 
   @Test (dataProvider = "selectSortData")
   public void testSelectSort(int [] expectedArray, int [] actualArray) {
+    logger.debug("Enter testSelectSort");
+    
     Array actual = new Array(actualArray);
     Array expected = new Array(expectedArray);
     
     actual = sortAction.selectSort(actual);
+    
+    logger.debug("Actual: " + actual);
+    logger.debug("Expected: " + expected);
 
     Assert.assertEquals(actual.toString(), expected.toString());
+    
+    logger.debug("Exit testSelectSort");
   }
   
   /**

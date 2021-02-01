@@ -1,6 +1,6 @@
-package by.epam.course.action;
+package by.epam.course.task1.action;
 
-import by.epam.course.validation.Validation;
+import by.epam.course.task1.validation.Validation;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,8 +19,8 @@ public class FileAction {
    * @throws IOException - file not found
    */
   public String read(String path) throws IOException {
+    final Path filePath = Paths.get(path);
     List<String> lines = new ArrayList<>();
-    Path filePath = Paths.get(path);
     
     Stream<String> lineStream = Files.lines(filePath);
     lines = lineStream.collect(Collectors.toList());

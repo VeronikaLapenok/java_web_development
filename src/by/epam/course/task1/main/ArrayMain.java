@@ -1,22 +1,19 @@
-package by.epam.course.main;
+package by.epam.course.task1.main;
 
-import by.epam.course.action.ArithmeticalAction;
-import by.epam.course.action.ArithmeticalActionIntStream;
-import by.epam.course.action.FileAction;
-import by.epam.course.action.ReplacementAction;
-import by.epam.course.action.ReplacementActionIntStream;
-import by.epam.course.action.SortAction;
-import by.epam.course.creator.ArrayCreator;
-import by.epam.course.entity.Array;
-import by.epam.course.exception.ArrayException;
-
+import by.epam.course.task1.action.ArithmeticalAction;
+import by.epam.course.task1.action.ArithmeticalActionIntStream;
+import by.epam.course.task1.action.FileAction;
+import by.epam.course.task1.action.ReplacementAction;
+import by.epam.course.task1.action.SortAction;
+import by.epam.course.task1.creator.ArrayCreator;
+import by.epam.course.task1.entity.Array;
+import by.epam.course.task1.exception.ArrayException;
 import java.io.IOException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ArrayMain {
-  static Logger logger = LogManager.getLogger();
+  private static Logger logger = LogManager.getLogger();
   
   /**
    * program entry point.
@@ -28,8 +25,8 @@ public class ArrayMain {
       Array array = creator.random(-100, 100, 10);
       logger.info(array);
       
-      ReplacementActionIntStream action = new ReplacementActionIntStream();
-      logger.debug(action.replaceNegatives(array));
+      ArithmeticalActionIntStream action = new ArithmeticalActionIntStream();
+      logger.debug(action.average(array));
       
 
       ArithmeticalAction arithmeticalAction = new ArithmeticalAction();
@@ -80,7 +77,7 @@ public class ArrayMain {
     
     FileAction file = new FileAction();
     try {
-      String line = file.read("./src/main/resources/arrayFile.txt");
+      String line = file.read("resources/data/arrayFile.txt");
       Array arrayFromFile = creator.fromString(line); 
       logger.info(arrayFromFile);
     } catch (IOException e) {

@@ -1,12 +1,12 @@
-package by.epam.course.action;
+package by.epam.course.task1.action;
 
-import by.epam.course.entity.Array;
+import by.epam.course.task1.entity.Array;
 
 public class SortAction {
   /**
    * sort array by bubble sort method.
    * @param array - initial array (type Array)
-   * @return - sorted array
+   * @return - sorted array ()
    */
   public Array bubbleSort(Array array) {
     int size = array.size();

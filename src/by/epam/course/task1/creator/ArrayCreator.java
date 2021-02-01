@@ -1,8 +1,8 @@
-package by.epam.course.creator;
+package by.epam.course.task1.creator;
 
-import by.epam.course.entity.Array;
-import by.epam.course.exception.ArrayException;
-import by.epam.course.validation.Validation;
+import by.epam.course.task1.entity.Array;
+import by.epam.course.task1.exception.ArrayException;
+import by.epam.course.task1.validation.Validation;
 
 public class ArrayCreator {
   /**
