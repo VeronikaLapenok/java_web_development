@@ -19,10 +19,10 @@ public class FileAction {
    * @throws IOException - file not found
    */
   public String read(String path) throws IOException {
-    final Path filePath = Paths.get(path);
+    final Path FILE_PATH = Paths.get(path);
     List<String> lines = new ArrayList<>();
     
-    Stream<String> lineStream = Files.lines(filePath);
+    Stream<String> lineStream = Files.lines(FILE_PATH);
     lines = lineStream.collect(Collectors.toList());
     
     String string = "";

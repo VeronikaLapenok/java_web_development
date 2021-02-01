@@ -9,12 +9,12 @@ public class ReplacementAction {
    * @return new array (type Array)
    */
   public Array replaceNegatives(Array array) {
-    final int replacement = 0;
+    final int REPLACEMENT = 0;
     int size = array.size();
 
     for (int i = 0; i < size; i++) {
       if (array.getValue(i) < 0) {
-        array.setValue(i, replacement);
+        array.setValue(i, REPLACEMENT);
       }
     }
 
