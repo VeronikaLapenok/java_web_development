@@ -40,10 +40,10 @@ public class Array {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
+    final int PRIME = 31;
     int result = 1;
     for (int item: array) {
-      result = prime * result + item;
+      result = PRIME * result + item;
     }
     return result;
   }
