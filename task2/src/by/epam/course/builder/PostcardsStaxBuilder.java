@@ -4,13 +4,14 @@ import by.epam.course.entity.AdvertisingPostcard;
 import by.epam.course.entity.CommonPostcard;
 import by.epam.course.entity.CongratulatoryPostcard;
 import by.epam.course.entity.Paper;
+import by.epam.course.entity.PaperSize;
 import by.epam.course.entity.Postcard;
-import by.epam.course.entity.Size;
+import by.epam.course.exception.XmlException;
 import by.epam.course.handler.PostcardXmlTag;
+import by.epam.course.validation.XmlValidation;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.time.LocalDate;
@@ -23,8 +24,8 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;;
 
 public class PostcardsStaxBuilder extends PostcardsAbstractBuilder {
   private static Logger logger = LogManager.getLogger();
@@ -42,8 +43,12 @@ public class PostcardsStaxBuilder extends PostcardsAbstractBuilder {
   }
   
   @Override
-  public void buildSetPostcards(String fileName) {
-    try (FileInputStream inputStream = new FileInputStream(new File(fileName))){
+  public void buildSetPostcards(String xmlFileName) throws XmlException {
+    if (!XmlValidation.isXmlValid(xmlFileName)) {
+      throw new XmlException(xmlFileName + " is not correct or valid");
+    }
+    
+    try (FileInputStream inputStream = new FileInputStream(new File(xmlFileName))) {
       XMLStreamReader reader = inputFactory.createXMLStreamReader(inputStream);
       
       String name;
@@ -60,19 +65,18 @@ public class PostcardsStaxBuilder extends PostcardsAbstractBuilder {
             case CONGRATULATORY_POSTCARD:
               postcards.add(buildPostcard(reader, new CongratulatoryPostcard()));
               break;
-            }
+            default:
+              break;
           }
+        }
       }
-    } catch (XMLStreamException e) {
-      e.printStackTrace();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    } catch (XMLStreamException |  IOException e) {
+      logger.error(xmlFileName + " file error or file not found");;
+    } 
   }
   
-  private Postcard buildPostcard(XMLStreamReader reader, Postcard postcard) throws XMLStreamException {
+  private Postcard buildPostcard(XMLStreamReader reader, Postcard postcard) 
+      throws XMLStreamException {
     postcard.setId(reader.getAttributeValue(null, PostcardXmlTag.ID.getValue()));
     postcard.setName(reader.getAttributeValue(null, PostcardXmlTag.NAME.getValue()));
     
@@ -109,15 +113,21 @@ public class PostcardsStaxBuilder extends PostcardsAbstractBuilder {
             case PAPER:
               postcard.setPaper(getXmlPaper(reader));
               break;
+            default:
+              break;
           }
           break;
         case XMLStreamConstants.END_ELEMENT:
           name = reader.getLocalName();
-          if ((PostcardXmlTag.valueOf(name.toUpperCase()) == PostcardXmlTag.COMMON_POSTCARD) ||
-             (PostcardXmlTag.valueOf(name.toUpperCase()) == PostcardXmlTag.ADVERTISING_POSTCARD) ||
-             (PostcardXmlTag.valueOf(name.toUpperCase()) == PostcardXmlTag.CONGRATULATORY_POSTCARD)) {
+          if ((PostcardXmlTag.valueOf(name.toUpperCase()) == PostcardXmlTag.COMMON_POSTCARD)
+              || (PostcardXmlTag.valueOf(name.toUpperCase()) == PostcardXmlTag
+              .ADVERTISING_POSTCARD)
+              || (PostcardXmlTag.valueOf(name.toUpperCase()) == PostcardXmlTag
+              .CONGRATULATORY_POSTCARD)) {
             return postcard;
           }
+        default:
+          break;
       }
     }
     throw new XMLStreamException("Unknown element");
@@ -141,20 +151,24 @@ public class PostcardsStaxBuilder extends PostcardsAbstractBuilder {
             case SIZE:
               paper.setSize(getXmlSize(reader));
               break;
+            default:
+              break;
           }
-          break;
+          break; 
         case XMLStreamConstants.END_ELEMENT:
           name = reader.getLocalName();
           if (PostcardXmlTag.valueOf(name.toUpperCase()) == PostcardXmlTag.PAPER) {
             return paper;
           }
+        default:
+          break;
       }
     }
     throw new XMLStreamException("Unknown element in tag <paper>");
   }
   
-  private Size getXmlSize(XMLStreamReader reader) throws XMLStreamException {
-    Size size = new Size();
+  private PaperSize getXmlSize(XMLStreamReader reader) throws XMLStreamException {
+    PaperSize size = new PaperSize();
     
     String name;
     while (reader.hasNext()) {
@@ -168,6 +182,8 @@ public class PostcardsStaxBuilder extends PostcardsAbstractBuilder {
             case WIDTH:
               size.setWidth(Integer.parseInt(getXmlText(reader)));
               break;
+            default:
+              break;
           }
           break;
         case XMLStreamConstants.END_ELEMENT:
@@ -175,6 +191,8 @@ public class PostcardsStaxBuilder extends PostcardsAbstractBuilder {
           if (PostcardXmlTag.valueOf(name.toUpperCase()) == PostcardXmlTag.SIZE) {
             return size;
           }
+        default:
+          break;
       }
     }
     throw new XMLStreamException("Unknown element in tag <paper>");
@@ -183,9 +201,9 @@ public class PostcardsStaxBuilder extends PostcardsAbstractBuilder {
   private String getXmlText(XMLStreamReader reader) throws XMLStreamException {
     String text = null;
     if (reader.hasNext()) {
-        reader.next();
-        text = reader.getText();
+      reader.next();
+      text = reader.getText();
     }
     return text;
-}   
+  }   
 }

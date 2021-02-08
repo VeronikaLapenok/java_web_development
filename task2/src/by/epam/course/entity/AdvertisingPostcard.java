@@ -11,8 +11,11 @@ public class AdvertisingPostcard extends Postcard {
   }
   
   public AdvertisingPostcard(String id, String name, String country, 
-                             LocalDate year, String author, Paper paper) {
+                             LocalDate year, String author, Paper paper,
+                             String company, String webSite) {
     super (id, name, country, year, author, paper);
+    this.company = company;
+    this.webSite = webSite;
   }
   
   public String getCompany() {
@@ -33,15 +36,7 @@ public class AdvertisingPostcard extends Postcard {
   
   @Override
   public boolean equals(Object object) {
-    if (this == object) {
-      return true;
-    }
-    
-    if (object == null) {
-      return false;
-    }
-    
-    if (getClass() != object.getClass()) {
+    if (!super.equals(object)) {
       return false;
     }
     
@@ -68,7 +63,7 @@ public class AdvertisingPostcard extends Postcard {
   
   @Override
   public int hashCode() {
-    final int PRIME = 31;
+    final int PRIME = 31 + super.hashCode();
     int result = 1;
     
     result = PRIME * result + ((company == null) ? 0 : company.hashCode());

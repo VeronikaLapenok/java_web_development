@@ -4,8 +4,10 @@ import by.epam.course.entity.AdvertisingPostcard;
 import by.epam.course.entity.CommonPostcard;
 import by.epam.course.entity.CongratulatoryPostcard;
 import by.epam.course.entity.Paper;
+import by.epam.course.entity.PaperSize;
 import by.epam.course.entity.Postcard;
-import by.epam.course.entity.Size;
+import by.epam.course.exception.XmlException;
+import by.epam.course.validation.XmlValidation;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -16,8 +18,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,6 +33,9 @@ public class PostcardsDomBuilder extends PostcardsAbstractBuilder {
   private DocumentBuilder documentBuilder;
   DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   
+  /**
+   * constructor for class PostcardDomBuilder.
+   */
   public PostcardsDomBuilder() {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     
@@ -41,14 +46,17 @@ public class PostcardsDomBuilder extends PostcardsAbstractBuilder {
     }
   }
   
+  /**
+   * constructor for class PostcardDomBuilder.
+   */
   public PostcardsDomBuilder(Set<Postcard> postcards) {
     super(postcards);
   }
   
   /**
-   * create a set of postcards by tag name.
-   * @param tagName - tag name of element
-   * @param root - a root in the postcard.xml
+   * create set of postcards by tag names.
+   * @param tagName - name of tag (type String)
+   * @param root - xml-file root element (type Element)
    */
   public void buildSetByTagName(String tagName, Element root) {
     NodeList postcardsList = root.getElementsByTagName(tagName);
@@ -60,17 +68,21 @@ public class PostcardsDomBuilder extends PostcardsAbstractBuilder {
   }
   
   @Override
-  public void buildSetPostcards(String fileName) {
-    Document document;
+  public void buildSetPostcards(String xmlFileName) throws XmlException {
+    if (!XmlValidation.isXmlValid(xmlFileName)) {
+      throw new XmlException(xmlFileName + " is not correct or valid");
+    }
     
+    Document document;
+ 
     try {
-      document = documentBuilder.parse(fileName);
+      document = documentBuilder.parse(xmlFileName);
       Element root = document.getDocumentElement();
       buildSetByTagName("common_postcard", root);
       buildSetByTagName("advertising_postcard", root);
       buildSetByTagName("congratulatory_postcard", root);
     } catch (IOException | SAXException e) {
-      e.printStackTrace();//File error or file not found
+      logger.error(xmlFileName + " file error or file not found");
     }
   }
   
@@ -78,29 +90,35 @@ public class PostcardsDomBuilder extends PostcardsAbstractBuilder {
     Postcard postcard;
     
     switch (postcardElement.getTagName()) {
-    case "congratulatory_postcard":
-      postcard = new CongratulatoryPostcard();
+      case "congratulatory_postcard":
+        postcard = new CongratulatoryPostcard();
       
-      ((CongratulatoryPostcard) postcard).setHoliday(String.valueOf(getElementTextContent(postcardElement, "holiday")));
-      ((CongratulatoryPostcard) postcard).setMessage(String.valueOf(getElementTextContent(postcardElement, "message")));
-      break;
-    case "advertising_postcard":
-      postcard = new AdvertisingPostcard();
+        ((CongratulatoryPostcard) postcard).setHoliday(String.valueOf(getElementTextContent(
+            postcardElement, "holiday")));
+        ((CongratulatoryPostcard) postcard).setMessage(String.valueOf(getElementTextContent(
+            postcardElement, "message")));
+        break;
+      case "advertising_postcard":
+        postcard = new AdvertisingPostcard();
       
-      ((AdvertisingPostcard) postcard).setCompany(getElementTextContent(postcardElement, "company"));
-      ((AdvertisingPostcard) postcard).setWebSite(String.valueOf(getElementTextContent(postcardElement, "web_site")));
-      break;
-    default:
-      postcard = new CommonPostcard();
+        ((AdvertisingPostcard) postcard).setCompany(getElementTextContent(
+            postcardElement, "company"));
+        ((AdvertisingPostcard) postcard).setWebSite(String.valueOf(getElementTextContent(
+            postcardElement, "web_site")));
+        break;
+      default:
+        postcard = new CommonPostcard();
       
-      ((CommonPostcard) postcard).setThema(String.valueOf(getElementTextContent(postcardElement, "thema")));
-      break;
+        ((CommonPostcard) postcard).setThema(String.valueOf(getElementTextContent(
+            postcardElement, "thema")));
+        break;
     }
     
     postcard.setId(postcardElement.getAttribute("id"));
     postcard.setName(postcardElement.getAttribute("name"));
     postcard.setCountry(getElementTextContent(postcardElement, "country"));
-    LocalDate year = LocalDate.parse(getElementTextContent(postcardElement, "year"), dateTimeFormatter);
+    LocalDate year = LocalDate.parse(getElementTextContent(postcardElement, "year"),
+        dateTimeFormatter);
     postcard.setYear(year);
     postcard.setAuthor(getElementTextContent(postcardElement, "author"));
     
@@ -111,7 +129,7 @@ public class PostcardsDomBuilder extends PostcardsAbstractBuilder {
     Boolean isGloss = Boolean.parseBoolean(getElementTextContent(paperElement, "is_gloss"));
     paper.setIsGloss(isGloss);
     
-    Size size = paper.getSize();
+    PaperSize size = paper.getSize();
     Element sizeElement = (Element) paperElement.getElementsByTagName("size").item(0);
     Integer length = Integer.parseInt(getElementTextContent(sizeElement, "length"));
     size.setLength(length);

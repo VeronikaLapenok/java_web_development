@@ -108,6 +108,7 @@ public class PostcardHandler extends DefaultHandler {
           break;
         case AUTHOR:
           current.setAuthor(data);
+        default:
           break;
       }
       currentXmlTag = null;
