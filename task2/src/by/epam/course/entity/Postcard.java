@@ -6,7 +6,7 @@ public class Postcard {
   private String id;
   private String name;
   private String country;
-  private LocalDate year;
+  private LocalDate date;
   private String author;
   
   private Paper paper;
@@ -21,9 +21,13 @@ public class Postcard {
     this.id = id;
     this.name = name;
     this.country = country;
-    this.year = year;
+    this.date = year;
     this.author = author;
     this.paper = paper;
+  }
+  
+  public boolean isValid() {
+    return (id != null && !id.isEmpty());
   }
   
   public String getId() {
@@ -50,12 +54,12 @@ public class Postcard {
     this.country = country;
   }
   
-  public LocalDate getYear() {
-    return year;
+  public LocalDate getDate() {
+    return date;
   }
   
   public void setYear(LocalDate year) {
-    this.year = year;
+    this.date = year;
   }
   
   public String getAuthor() {
@@ -75,18 +79,75 @@ public class Postcard {
   }
   
   @Override
-  public boolean equals(Object obj) {
-    // TODO Auto-generated method stub
-    return true;
+  public boolean equals(Object object) {
+    if (this == object) {
+      return true;
+    }
+    
+    if (object == null) {
+      return false;
+    }
+    
+    if (getClass() != object.getClass()) {
+      return false;
+    }
+    
+    Postcard other = (Postcard) object;
+    
+    if (!isValid() || !other.isValid()) {
+      return false;
+    } else if (!id.equals(other.id)) {
+      return false;
+    }
+    
+    if (name == null) {
+      if (other.name != null) {
+        return false;
+      }
+    } else if (!name.equals(other.name)) {
+      return false;
+    }
+    
+    if (country == null) {
+      if (other.country != null) {
+        return false;
+      }
+    } else if (!country.equals(other.country)) {
+      return false;
+    }
+    
+    if (date == null) {
+      if (other.date != null) {
+        return false;
+      }
+    } else if (!date.equals(other.date)) {
+      return false;
+    }
+    
+    if (author == null) {
+      if (other.author != null) {
+        return false;
+      }
+    } else if (!author.equals(other.author)) {
+      return false;
+    }
+    
+     return true;
   }
   
   @Override
   public int hashCode() {
-    // TODO Auto-generated method stub
-    return super.hashCode();
+    final int PRIME = 31;
+    int result = 1;
+    
+    result = PRIME * result + ((id == null) ? 0 : id.hashCode());
+    result = PRIME * result + ((name == null) ? 0 : name.hashCode());
+    result = PRIME * result + ((country == null) ? 0 : country.hashCode());
+    result = PRIME * result + ((date == null) ? 0 : date.hashCode());
+    result = PRIME * result + ((author == null) ? 0 : author.hashCode());
+    
+    return result;
   }
-  
-  
   
   @Override
   public String toString() {
@@ -94,7 +155,7 @@ public class Postcard {
     stringBuilder.append(id).append("\nName: ").append(name).append("\n---------------");
     stringBuilder.append("\n\sPaper").append(paper).append("\n---------------");
     stringBuilder.append("\n\sInformation").append("\nCountry: ").append(country);
-    stringBuilder.append("\nYear: ").append(year);
+    stringBuilder.append("\nYear: ").append(date);
     stringBuilder.append("\nAuthor: ").append(author);
     
     return stringBuilder.toString();

@@ -11,8 +11,11 @@ public class CongratulatoryPostcard extends Postcard {
   }
   
   public CongratulatoryPostcard(String id, String name, String country, 
-                             LocalDate year, String author, Paper paper) {
+                             LocalDate year, String author, Paper paper,
+                             String holiday, String message) {
     super (id, name, country, year, author, paper);
+    this.holiday = holiday;
+    this.message = message;
   }
   
   public String getHoliday() {
@@ -32,15 +35,41 @@ public class CongratulatoryPostcard extends Postcard {
   }
   
   @Override
-  public boolean equals(Object obj) {
-    // TODO Auto-generated method stub
-    return true;
+  public boolean equals(Object object) {
+    if (!super.equals(object)) {
+      return false;
+    }
+    
+    CongratulatoryPostcard other = (CongratulatoryPostcard) object;
+    
+    if (holiday == null) {
+      if (other.holiday != null) {
+        return false;
+      }
+    } else if (!holiday.equals(other.holiday)) {
+      return false;
+    }
+    
+    if (message == null) {
+      if (other.message != null) {
+        return false;
+      }
+    } else if (!message.equals(other.message)) {
+      return false;
+    }
+    
+     return true;
   }
   
   @Override
   public int hashCode() {
-    // TODO Auto-generated method stub
-    return super.hashCode();
+    final int PRIME = 31 + super.hashCode();
+    int result = 1;
+    
+    result = PRIME * result + ((holiday == null) ? 0 : holiday.hashCode());
+    result = PRIME * result + ((message == null) ? 0 : message.hashCode());
+    
+    return result;
   }
   
   @Override

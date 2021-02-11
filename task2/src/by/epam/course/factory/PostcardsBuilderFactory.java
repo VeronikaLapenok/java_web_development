@@ -6,16 +6,20 @@ import by.epam.course.builder.PostcardsSaxBuilder;
 import by.epam.course.builder.PostcardsStaxBuilder;
 
 public class PostcardsBuilderFactory {
-  private enum TypeParser {
+  public enum TypeParser {
     SAX, STAX, DOM
   }
   
   private PostcardsBuilderFactory() {
   }
   
-  public static PostcardsAbstractBuilder createPostcardBuilder(String typeParser) {
-    TypeParser type = TypeParser.valueOf(typeParser.toUpperCase());
-    switch (type) {
+  /**
+   * create postcard builder for DOM, SAX and STAX parsers.
+   * @param typeParser - type of the using parser (type TypeParser)
+   * @return new PostcardsDomBuilder()/new PostcardsSaxBuilder()/PostcardsStaxBuilder()
+   */
+  public static PostcardsAbstractBuilder createPostcardBuilder(TypeParser typeParser) {
+    switch (typeParser) {
       case DOM:
         return new PostcardsDomBuilder();
       case SAX:
@@ -23,7 +27,8 @@ public class PostcardsBuilderFactory {
       case STAX:
         return new PostcardsStaxBuilder();
       default:
-        throw new EnumConstantNotPresentException(type.getDeclaringClass(), type.name());
+        throw new EnumConstantNotPresentException(typeParser.getDeclaringClass(),
+            typeParser.name());
     }
   }
 }

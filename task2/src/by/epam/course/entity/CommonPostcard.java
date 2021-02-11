@@ -10,8 +10,9 @@ public class CommonPostcard extends Postcard {
   }
   
   public CommonPostcard (String id, String name, String country, 
-                         LocalDate year, String author, Paper paper) {
+                         LocalDate year, String author, Paper paper, String thema) {
     super (id, name, country, year, author, paper);
+    setThema(thema);
   }
   
   public String getThema() {
@@ -23,15 +24,32 @@ public class CommonPostcard extends Postcard {
   }
   
   @Override
-  public boolean equals(Object obj) {
-    // TODO Auto-generated method stub
-    return true;
+  public boolean equals(Object object) {
+    if (!super.equals(object)) {
+      return false;
+    }
+    
+    CommonPostcard other = (CommonPostcard) object;
+    
+    if (thema == null) {
+      if (other.thema != null) {
+        return false;
+      }
+    } else if (!thema.equals(other.thema)) {
+      return false;
+    }
+    
+     return true;
   }
   
   @Override
   public int hashCode() {
-    // TODO Auto-generated method stub
-    return super.hashCode();
+    final int PRIME = 31 + super.hashCode();
+    int result = 1;
+    
+    result = PRIME * result + ((thema == null) ? 0 : thema.hashCode());
+    
+    return result;
   }
   
   @Override
