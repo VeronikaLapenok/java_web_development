@@ -1,4 +1,4 @@
-package by.epam.course.entity;
+package by.epam.course.exception;
 
 public class ConeException extends Exception {
   public ConeException() {
@@ -15,5 +15,4 @@ public class ConeException extends Exception {
   public ConeException(Throwable cause) {
     super(cause);
   }
-
 }
