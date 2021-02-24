@@ -1,1 +1,0 @@
-2021-02-11 15:34:29 [main] INFO  by.epam.course.main.ShapeMain- Hello, world!!!
